@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+    <div class="logout-btn">
+        <form th:action="@{/logout}" method="POST">
+            <input type="submit" value="logout" class="btn btn-outline-primary mt-2" />
+        </form>
+    </div>
+    <div class="content">
+        <h2 style="text-align: center;">COMPANY HOME PAGE</h2>
+        <hr>
+        <p style="text-align: center;">WELCOME</p>
+        User: <span sec:authentication="principal.username"></span>
+        <br>
+        Role: <span sec:authentication="principal.authorities"></span>
+        <br>
+        Profile Status: <span th:each="status : ${user.status}" th:text="${status.statusName}">Status</span>
+        <div th:if="${user.status.![statusName].contains('REJECTED')}" style="color: red; text-align: center;"> 
+            Your profile status is rejected. Please contact support for further assistance and update again. 
+        </div>
+        <hr>
+        <form th:action="@{/update/{id}(id=${user.id})}" method="GET" style="text-align: center;">
+            <input type="submit" value="Update User" class="update-user" />
+        </form>
+        <br><br>
+        <form th:action="@{/list}" method="GET" sec:authorize="hasRole('MANAGER')" style="text-align: center;">
+            <input type="submit" value="User list" class="btn btn-outline-primary mt-2" />
+        </form>
+        <br><br>
+    </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>List</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <h2 style="text-align: center;">USER LIST</h2>
+        <hr>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>User Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="tempUser : ${users}">
+                    <td th:text="${tempUser.id}"></td>
+                    <td th:text="${tempUser.userName}"></td>
+                    <td th:text="${tempUser.firstName}"></td>
+                    <td th:text="${tempUser.lastName}"></td>
+                    <td th:text="${tempUser.email}"></td>
+                    <td>
+                        <span th:each="role : ${tempUser.roles}" th:text="${role.name}">Role</span>
+                    </td>
+                    <td>
+                        <span th:each="status : ${tempUser.status}" th:text="${status.statusName}">Status</span>
+                    </td>
+                    
+                    <!--delete button-->
+                    <td>
+                        <a th:href="@{/delete(UserId=${tempUser.id})}" class="btn btn-danger btn-sm button-82-pushable"
+                            onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+                            <span class="button-82-shadow"></span>
+                            <span class="button-82-edge"></span>
+                            <span class="button-82-front text">Delete</span>
+                        </a>
+                     
+
+                        <a th:href="@{/approveUser/{UserId}(UserId=${tempUser.id})}" class="button-78"
+                            onclick="if (!(confirm('Are you sure you want to approve this user?'))) return false">
+                            <span class="button-78-shadow"></span>
+                            <span class="button-78-edge"></span>
+                            <span class="button-78-front text">Approve</span>
+                        </a>
+
+                        <a th:href="@{/rejectUser/{UserId}(UserId=${tempUser.id})}" class="button-78"
+                            onclick="if (!(confirm('Are you sure you want to reject this user?'))) return false">
+                            <span class="button-78-shadow"></span>
+                            <span class="button-78-edge"></span>
+                            <span class="button-78-front text">Reject</span>
+                        </a>
+
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+         <!--Adding Button-->
+         <div class="center-button">
+            <a th:href="@{/addUser}" class="button-71" role="button">
+                <span class="button-71-shadow"></span>
+                <span class="button-71-edge"></span>
+                <span class="button-71-front text">Add User</span>
+            </a>
+        </div>
+         <br>
+         <a th:href="@{/}">Back to home</a>
+    </body>
+</html>

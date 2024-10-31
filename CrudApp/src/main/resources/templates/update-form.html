@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        .container {
+            padding: 16px;
+            background-color: white;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+        input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+        .registerbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+        .registerbtn:hover {
+            opacity: 1;
+        }
+        a {
+            color: dodgerblue;
+        }
+        .signin {
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+    <title>Update User</title>
+</head>
+<body>
+    <h2 style="text-align: center; color: white;">UPDATE YOUR PROFILE</h2>
+    <hr>
+    <div class="container">
+        <form th:action="@{/update/processingTheUpdate}" th:object="${user}" method="POST">
+            <input type="hidden" th:field="*{id}" />
+            <label><b>User name</b></label>
+            <input type="text" th:field="*{userName}" placeholder="Enter new User name" required>
+            <label><b>Password</b></label>
+            <input type="password" th:field="*{password}" placeholder="Enter new Password" required>
+            <label><b>First Name</b></label>
+            <input type="text" th:field="*{firstName}" placeholder="Enter new First name" required>
+            <label><b>Last Name</b></label>
+            <input type="text" th:field="*{lastName}" placeholder="Enter new Last name" required>
+            <label><b>Email</b></label>
+            <input type="email" th:field="*{email}" placeholder="Enter new email" required>
+            <br>
+            <button type="submit" class="registerbtn">Update user</button>
+        </form>
+    </div>
+</body>
+</html>
